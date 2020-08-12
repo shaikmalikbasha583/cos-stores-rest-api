@@ -18,6 +18,6 @@ class UserRegistration(Resource):
 
     def post(self):
         data = UserRegistration.parser.parse_args()
-        user = UserModel(**data)
+        user = UserModel(data['username'], data['password'])
         user.save_to_db()
         return {"message": "user created successfully..."}, 201
