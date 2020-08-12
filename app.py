@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from flask import Flask, jsonify, request
@@ -14,7 +15,8 @@ app.secret_key = "secret-key"
 api = Api(app)
 
 # configurations
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 jwt = JWT(app, authenticate, identity)
